@@ -33,6 +33,11 @@ export class Start extends withTwind()(BitcoinConnectElement) {
   override render() {
     return html`<div
       class="flex flex-col justify-center items-center w-full font-sans"
+      aria-live="polite"
+      role="region"
+      aria-label="${this._connected
+        ? 'Connected Wallet Section'
+        : 'Connect Wallet Section'}"
     >
       ${this._connected
         ? html`
@@ -46,7 +51,7 @@ export class Start extends withTwind()(BitcoinConnectElement) {
                   <bc-currency-switcher>
                     <bc-balance class="text-2xl"></bc-balance>
                   </bc-currency-switcher>`
-              : html` <span
+              : html`<span
                   class="text-lg font-medium mt-4 -mb-4 ${classes[
                     'text-neutral-secondary'
                   ]}"
@@ -59,21 +64,31 @@ export class Start extends withTwind()(BitcoinConnectElement) {
               class="my-8 ${classes[
                 'text-neutral-primary'
               ]} w-64 max-w-full text-center"
+              role="heading"
+              aria-level="1"
             >
               How would you like to
               connect${this._appName ? `\nto ${this._appName}` : ''}?
             </h1>
 
             <bc-connector-list></bc-connector-list>
-
-            <div class="flex flex-col items-center w-full font-sans text-sm">
-              <h1 class="mt-8 ${classes['text-neutral-primary']} text-center">
+            
+			<div class="flex flex-col items-center w-full font-sans text-sm">
+              <h1
+                class="mt-8 ${classes['text-neutral-primary']} text-center"
+                role="heading"
+                aria-level="2"
+              >
                 Don't have a bitcoin lightning wallet?
                 <a
                   class="no-underline font-bold ${classes.interactive} ${classes[
                     'text-brand-mixed'
-                  ]} "
+                  ]}"
                   @click=${() => store.getState().pushRoute('/new-wallet')}
+				  @keydown=${() => store.getState().pushRoute('/new-wallet')}
+                  role="link"
+                  tabindex="0"
+                  aria-label="Get a bitcoin lightning wallet"
                   >Get one here</a
                 >
               </h1>

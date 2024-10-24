@@ -12,27 +12,44 @@ export class Navbar extends withTwind()(BitcoinConnectElement) {
   heading?: string;
 
   override render() {
-    return html`<div
+    return html`<nav
       class="flex justify-center items-center gap-2 w-full relative pb-4"
+      role="navigation"
+      aria-label="${this.heading ? this.heading + ' navigation' : 'navigation'}"
     >
       <div class="absolute left-8 h-full flex items-center justify-center">
         <div
           class="${classes.interactive} ${classes['text-neutral-tertiary']}"
+          role="button"
+          tabindex="0"
+          aria-label="Go back"
           @click=${this._goBack}
+          @keydown=${this._handleKeydown}
         >
           ${backIcon}
         </div>
       </div>
-      <div class="font-sans font-medium ${classes['text-neutral-secondary']}">
+      <div
+        class="font-sans font-medium ${classes['text-neutral-secondary']}"
+        role="heading"
+        aria-level="1"
+      >
         ${this.heading}
       </div>
-    </div>`;
+    </nav>`;
   }
 
   private _goBack = () => {
     store.getState().popRoute();
     store.getState().setError(undefined);
   };
+
+  public _handleKeydown(event: KeyboardEvent) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this._goBack();
+    }
+  }
 }
 
 declare global {

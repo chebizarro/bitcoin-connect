@@ -64,7 +64,16 @@ export class PayButton extends withTwind()(BitcoinConnectElement) {
   override render() {
     const isLoading = this._waitingForInvoice || this._modalOpen;
 
-    return html` <div class="inline-flex" @click=${this._onClick}>
+    return html`<div
+      class="inline-flex"
+	      aria-live="polite"
+      aria-label="${isLoading
+        ? 'Loading payment'
+        : this._paid
+			? 'Payment complete'
+			: this.title}"	
+      @click=${this._onClick}
+    >
       <bci-button variant="primary">
         ${isLoading
           ? html`${waitingIcon(`w-11 h-11 -mr-2 -ml-2.5 `)}`

@@ -9,6 +9,7 @@ import '../bc-router-outlet';
 import {classes} from '../css/classes';
 import store from '../../state/store';
 import {PaymentMethods} from '../../types/PaymentMethods';
+import './bc-connect';
 
 @customElement('bc-payment')
 export class SendPaymentFlow extends withTwind()(BitcoinConnectElement) {
@@ -66,9 +67,26 @@ export class SendPaymentFlow extends withTwind()(BitcoinConnectElement) {
 
   override render() {
     return this._showConnect && !this.paid
-      ? html` <bc-connect closable=${true}></bc-connect>`
-      : html`<div class="w-full flex-col justify-center items-center">
-          <bc-modal-header class="flex w-full" ?closable=${this.closable}>
+      ? html`
+          <bc-connect
+            ?closable=${true}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="payment-connect-modal-header"
+          ></bc-connect>
+        `
+      : html`<div
+          class="w-full flex-col justify-center items-center"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="payment-modal-header"
+          aria-describedby="${this._error ? 'payment-error-message' : ''}"
+        >
+          <bc-modal-header
+            id="payment-modal-header"
+            class="flex w-full"
+            ?closable=${this.closable}
+          >
             <p
               class="font-sans font-medium ${classes['text-neutral-secondary']}"
             >
@@ -84,7 +102,11 @@ export class SendPaymentFlow extends withTwind()(BitcoinConnectElement) {
             ></bc-send-payment>
           </div>
           ${this._error
-            ? html`<p class="mt-4 text-center font-sans text-red-500">
+            ? html`<p
+                id="payment-error-message"
+                class="mt-4 text-center font-sans text-red-500"
+                aria-live="assertive"
+              >
                 ${this._error}
               </p>`
             : null}

@@ -24,6 +24,21 @@ export class Button extends withTwind()(InternalElement) {
   })
   block = false;
 
+  @property({
+    type: Boolean,
+  })
+  pressed = false;
+
+  @property({
+    type: Boolean,
+  })
+  loading = false;
+
+  @property({
+    type: Number,
+  })
+  override tabIndex = 0;
+
   override render() {
     const isDarkMode =
       window.matchMedia &&
@@ -57,6 +72,12 @@ export class Button extends withTwind()(InternalElement) {
         ? `${classes['text-brand-mixed']}`
         : `${classes['text-neutral-tertiary']}`}
         "
+      aria-pressed="${this.pressed ? 'true' : 'false'}"
+      aria-busy="${this.loading ? 'true' : 'false'}"
+      aria-live="polite"
+      ?disabled="${this.loading}"
+      ?autofocus="${this.variant === 'primary'}"
+      tabindex="${this.tabIndex}"
     >
       ${this.ghost
         ? null

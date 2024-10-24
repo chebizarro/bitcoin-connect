@@ -1,6 +1,7 @@
 import {LitElement, PropertyValues, css} from 'lit';
 
 export class InternalElement extends LitElement {
+ 
   static override styles = [
     css`
       :host {
@@ -22,6 +23,15 @@ export class InternalElement extends LitElement {
 
   protected override updated(changedProperties: PropertyValues): void {
     super.updated(changedProperties);
+
+
+    if (this.ariaLabel) {
+      this.setAttribute('aria-label', this.ariaLabel);
+    }
+    if (this.ariaPressed !== null) {
+      this.setAttribute('aria-pressed', this.ariaPressed.toString());
+    }
+
     // hack to enable manual dark mode:
     // if a dark class is set on the document, pass it to the direct children of this shadow root
     // also requires `darkMode: "class"` to be set in twind config
@@ -37,7 +47,7 @@ export class InternalElement extends LitElement {
       }
     }
   }
-
+  
   // TODO: move, only needed by the button?
   protected _getBrandColorLuminance() {
     if (!globalThis.window) {

@@ -42,6 +42,9 @@ export class Button extends withTwind()(BitcoinConnectElement) {
       <div
         class="relative inline-flex ${classes.interactive} cursor-pointer 
           rounded-lg gap-2 justify-center items-center"
+        aria-pressed="${this._connected ? 'true' : 'false'}"
+        aria-busy="${isLoading ? 'true' : 'false'}"
+        aria-label="${isLoading ? 'Connecting...' : this.title}"
         @click=${this._onClick}
       >
         <div

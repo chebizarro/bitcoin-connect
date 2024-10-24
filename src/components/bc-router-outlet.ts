@@ -8,7 +8,9 @@ import {routes} from './routes';
 export class RouterOutlet extends withTwind()(BitcoinConnectElement) {
   override render() {
     //TODO: r = routes[this._route](this._routeParams);
-    return html`<div class="flex flex-col w-full">${routes[this._route]}</div>`;
+    return html`<div class="flex flex-col w-full" aria-live="polite">
+      ${routes[this._route]}
+    </div>`;
   }
 }
 

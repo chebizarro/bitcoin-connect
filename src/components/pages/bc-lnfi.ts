@@ -44,7 +44,10 @@ export class LnfiNWCPage extends withTwind()(BitcoinConnectElement) {
               'border-neutral-secondary'
             ]}"
           />
-          <bci-button @click=${this.onConnect}>
+          <bci-button
+            @click=${this.onConnect}
+            aria-label="Connect LNbits Wallet"
+          >
             <span class="${classes['text-brand-mixed']}">Connect</span>
           </bci-button>
         </div>

@@ -49,6 +49,9 @@ export class Balance extends withTwind()(BitcoinConnectElement) {
       class="font-medium font-sans mr-2 flex justify-center items-center gap-0.5 ${classes[
         'text-brand-mixed'
       ]}"
+      role="status"
+      aria-live="${this._loading ? 'polite' : 'off'}"
+      aria-busy="${this._loading ? 'true' : 'false'}"
     >
       <span class="font-mono">${this._balance || 'Loading...'} </span></span
     >`;
@@ -109,6 +112,8 @@ export class Balance extends withTwind()(BitcoinConnectElement) {
         this._balance = '⚠️';
         // FIXME: better error handling
         console.error(error);
+      } finally {
+        this._loading = false;
       }
     })();
   }

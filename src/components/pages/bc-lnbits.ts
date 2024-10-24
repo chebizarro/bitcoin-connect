@@ -38,9 +38,11 @@ export class lnbitsPage extends withTwind()(BitcoinConnectElement) {
             class="w-full mb-8 rounded-lg p-2 border-1 ${classes[
               'border-neutral-secondary'
             ]}"
+            aria-label="LNbits Admin Key"
+            aria-required="true"
           />
           <div class="mb-1 ${classes['text-neutral-secondary']}">
-            LNbits URL
+            <label for="lnbits-url">LNbits URL</label>
           </div>
 
           <input
@@ -50,8 +52,13 @@ export class lnbitsPage extends withTwind()(BitcoinConnectElement) {
             class="w-full mb-8 rounded-lg p-2 border-1 ${classes[
               'border-neutral-secondary'
             ]}"
+            aria-label="LNbits URL"
+            aria-required="true"
           />
-          <bci-button @click=${this.onConnect}>
+          <bci-button	
+            @click=${this.onConnect}
+            aria-label="Connect LNbits Wallet"
+          >
             <span class="${classes['text-brand-mixed']}">Connect</span>
           </bci-button>
         </div>

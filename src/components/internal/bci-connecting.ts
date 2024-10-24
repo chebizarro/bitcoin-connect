@@ -10,6 +10,9 @@ export class Connecting extends withTwind()(InternalElement) {
   override render() {
     return html`<div
       class="${classes['text-foreground']} w-full flex-1 animate-pulse"
+      aria-live="polite"
+      aria-busy="true"
+      role="status"
     >
       <h1
         class="w-1/2 h-7 mx-auto bg-gray-200 dark:bg-gray-700 rounded-md"
@@ -27,6 +30,9 @@ export class Connecting extends withTwind()(InternalElement) {
       <div
         class="h-10 w-1/2 mx-auto bg-gray-200 dark:bg-gray-700 rounded-md"
       ></div>
+
+      <!-- Visually hidden but announced to screen readers -->
+      <div class="sr-only" aria-hidden="false">Connecting, please wait...</div>
     </div>`;
   }
 }

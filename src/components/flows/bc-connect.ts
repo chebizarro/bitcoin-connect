@@ -29,8 +29,19 @@ export class ConnectFlow extends withTwind()(BitcoinConnectElement) {
   closable?: boolean;
 
   override render() {
-    return html`<div class="w-full flex-col justify-center items-center">
-      <bc-modal-header class="flex w-full" show-help ?closable=${this.closable}>
+    return html`<div
+      class="w-full flex-col justify-center items-center"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="connect-modal-header"
+      aria-describedby="${this._error ? 'connect-error-message' : ''}"
+    >
+      <bc-modal-header
+        id="connect-modal-header"
+        class="flex w-full"
+        show-help
+        ?closable=${this.closable}
+      >
         <div class="${classes['text-brand-mixed']} mr-[2px]">
           ${bcCircleIcon}
         </div>
@@ -39,10 +50,14 @@ export class ConnectFlow extends withTwind()(BitcoinConnectElement) {
       <div class="flex w-full pt-8">
         ${this._connecting
           ? html`<bci-connecting class="flex w-full"></bci-connecting>`
-          : html` <bc-router-outlet class="flex w-full"></bc-router-outlet>`}
+          : html`<bc-router-outlet class="flex w-full"></bc-router-outlet>`}
       </div>
       ${this._error
-        ? html`<p class="mt-4 text-center font-sans text-red-500">
+        ? html`<p
+            id="connect-error-message"
+            class="mt-4 text-center font-sans text-red-500"
+            aria-live="assertive"
+          >
             ${this._error}
           </p>`
         : null}
